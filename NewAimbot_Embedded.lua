@@ -3216,7 +3216,7 @@ _G.aimLock = _G.aimLock or false;
 _G.lockKey = _G.lockKey or "MouseButton2";
 _G.mobileCenterAim = _G.mobileCenterAim ~= nil and _G.mobileCenterAim or isMobilePlatform();
 _G.mobileButtons = _G.mobileButtons ~= nil and _G.mobileButtons or isMobilePlatform();
-_G.uiScale = _G.uiScale or 1;
+_G.uiScale = _G.uiScale or 0.76;
 _G.uiWindowAlpha = _G.uiWindowAlpha ~= nil and _G.uiWindowAlpha or 0.08;
 _G.uiContentAlpha = _G.uiContentAlpha ~= nil and _G.uiContentAlpha or 0.02;
 _G.uiTheme = _G.uiTheme or "Midnight Purple";
@@ -3504,7 +3504,7 @@ local DEFAULT_CONFIG = {
 	lockKey = "MouseButton2",
 	mobileCenterAim = isMobilePlatform(),
 	mobileButtons = isMobilePlatform(),
-	uiScale = 1,
+	uiScale = 0.76,
 	uiWindowAlpha = 0.08,
 	uiContentAlpha = 0.02,
 	uiTheme = "Midnight Purple",
@@ -3721,7 +3721,7 @@ local function applyToastPos()
 	end;
 end;
 local function applyCustomUI()
-	_G.uiScale = math.clamp(tonumber(_G.uiScale) or 1, 0.75, 1.25);
+	_G.uiScale = math.clamp(tonumber(_G.uiScale) or 0.76, 0.75, 1.25);
 	_G.uiWindowAlpha = 0.65;
 	_G.uiContentAlpha = 0.6;
 	_G.uiAnimSpeed = math.clamp(tonumber(_G.uiAnimSpeed) or 1, 0.35, 2.5);
@@ -7866,7 +7866,7 @@ local function createUI()
 	frm = frame;
 	round(frame, UDim.new(0, _G.uiRounded or 24));
 	local rootScale = newUi("UIScale", frame);
-	rootScale.Scale = math.clamp(tonumber(_G.uiScale) or 1, 0.75, 1.25);
+	rootScale.Scale = math.clamp(tonumber(_G.uiScale) or 0.76, 0.75, 1.25);
 	uiRefs.rootScale = rootScale;
 	shadow(frame);
 	stroke(frame, 1.2, Color3.fromRGB(255, 255, 255), 0.3);
