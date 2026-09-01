@@ -15,7 +15,6 @@ local __lt = (function()
 	end;
 	local resolver = (function() --!nonstrict
 
-,
 		fallback: { [string]: boolean },
 		invalid: { [string]: boolean },
 	},
