@@ -4775,7 +4775,7 @@ VLO.aimOrigin.toast = function(msg)
 	icon.BorderSizePixel = 0;
 	icon.Position = UDim2.new(0, 22, 0.5, _G.toastCompact and -12 or -16);
 	icon.Size = _G.toastCompact and UDim2.new(0, 24, 0, 24) or UDim2.new(0, 32, 0, 32);
-	icon.Font = Enum.Font.GothamBlack;
+	icon.Font = Enum.Font.Gotham;
 	icon.Text = "!";
 	icon.TextSize = 16;
 	icon.TextColor3 = accent;
@@ -4786,7 +4786,7 @@ VLO.aimOrigin.toast = function(msg)
 	title.BackgroundTransparency = 1;
 	title.Position = UDim2.new(0, 64, 0, _G.toastCompact and 7 or 10);
 	title.Size = UDim2.new(1, -82, 0, 18);
-	title.Font = Enum.Font.GothamBlack;
+	title.Font = Enum.Font.Gotham;
 	title.TextSize = 13;
 	title.TextColor3 = UI.text;
 	title.TextXAlignment = Enum.TextXAlignment.Left;
@@ -6498,9 +6498,9 @@ local function ensureESPBillboard(rec, ch)
 		tx.Size = UDim2.new(1, 0, 1, 0);
 		tx.BackgroundTransparency = 1;
 		tx.TextColor3 = Color3.fromRGB(255, 255, 255);
-		tx.TextStrokeTransparency = 0.5;
+		tx.TextStrokeTransparency = 1;
 		tx.TextStrokeColor3 = Color3.fromRGB(0, 0, 0);
-		tx.Font = Enum.Font.GothamBold;
+		tx.Font = Enum.Font.Gotham;
 		rec.bb = bb;
 		rec.tx = tx;
 	end;
@@ -6902,7 +6902,7 @@ VLO.aimOrigin.addRowButtons = function(parent, labelText, desc, buttons)
 		btn.AutoButtonColor = false;
 		btn.Text = tostring(spec.text or "RUN");
 		btn.TextColor3 = UI.text;
-		btn.Font = Enum.Font.GothamBold;
+		btn.Font = Enum.Font.Gotham;
 		btn.TextSize = 11;
 		round(btn, UDim.new(0, 12));
 		stroke(btn, 1, spec.stroke or UI.stroke2, 0.18);
@@ -6931,7 +6931,7 @@ local function addRowDropdown(parent, labelText, var, options, desc, onChange)
 	lbl.Size = UDim2.new(0.5, -8, 0, 20);
 	lbl.Position = UDim2.new(0, 0, 0, 2);
 	lbl.BackgroundTransparency = 1;
-	lbl.Font = Enum.Font.GothamSemibold;
+	lbl.Font = Enum.Font.GothamMedium;
 	lbl.TextSize = 14;
 	lbl.TextXAlignment = Enum.TextXAlignment.Left;
 	lbl.Text = labelText;
@@ -6982,7 +6982,7 @@ local function addRowDropdown(parent, labelText, var, options, desc, onChange)
 	txt.BackgroundTransparency = 1;
 	txt.Size = UDim2.new(1, -54, 1, 0);
 	txt.Position = UDim2.new(0, 20, 0, 0);
-	txt.Font = Enum.Font.GothamBold;
+	txt.Font = Enum.Font.Gotham;
 	txt.TextSize = 13;
 	txt.TextColor3 = UI.text;
 	txt.TextXAlignment = Enum.TextXAlignment.Left;
@@ -6992,7 +6992,7 @@ local function addRowDropdown(parent, labelText, var, options, desc, onChange)
 	arrow.BackgroundTransparency = 1;
 	arrow.Size = UDim2.new(0, 28, 1, 0);
 	arrow.Position = UDim2.new(1, -32, 0, 0);
-	arrow.Font = Enum.Font.GothamBlack;
+	arrow.Font = Enum.Font.Gotham;
 	arrow.TextSize = 14;
 	arrow.Text = "v";
 	arrow.TextColor3 = UI.acc2;
@@ -7072,7 +7072,7 @@ local function addRowDropdown(parent, labelText, var, options, desc, onChange)
 			o.BorderSizePixel = 0;
 			o.AutoButtonColor = false;
 			o.Text = opt;
-			o.Font = Enum.Font.GothamSemibold;
+			o.Font = Enum.Font.GothamMedium;
 			o.TextSize = 13;
 			o.TextColor3 = UI.sub;
 			o.TextXAlignment = Enum.TextXAlignment.Left;
@@ -7091,7 +7091,7 @@ local function addRowDropdown(parent, labelText, var, options, desc, onChange)
 			check.Text = "*";
 			check.TextTransparency = 1;
 			check.TextColor3 = UI.acc2;
-			check.Font = Enum.Font.GothamBlack;
+			check.Font = Enum.Font.Gotham;
 			check.TextSize = 13;
 			check.ZIndex = 42;
 			btns[opt] = o;
@@ -7463,7 +7463,7 @@ local function makeTabBar(parent)
 		b.BackgroundTransparency = 0;
 		b.BackgroundColor3 = UI.tab;
 		b.Size = UDim2.new(0, isMobilePlatform() and 102 or 118, 1, 0);
-		b.Font = Enum.Font.GothamBlack;
+		b.Font = Enum.Font.Gotham;
 		b.TextSize = 12;
 		b.Text = string.upper(txt);
 		b.TextColor3 = UI.sub;
@@ -7664,7 +7664,7 @@ uiRefs.updateLockUi = function()
 	topBtn.BackgroundColor3 = isLock and UI.ok or UI.bar1;
 	topBtn.BackgroundTransparency = isLock and 0.08 or 0.2;
 	topBtn.TextStrokeColor3 = Color3.new(0, 0, 0);
-	topBtn.TextStrokeTransparency = 0;
+	topBtn.TextStrokeTransparency = 1;
 	local st = topBtn:FindFirstChildOfClass("UIStroke");
 	if st then
 		st.Color = isLock and UI.acc2 or UI.stroke2;
@@ -7725,7 +7725,7 @@ local function makeKeyChip(parent, keyName, onRemove)
 	rm.BackgroundColor3 = UI.danger;
 	rm.Text = "x";
 	rm.TextColor3 = Color3.new(1, 1, 1);
-	rm.Font = Enum.Font.GothamSemibold;
+	rm.Font = Enum.Font.GothamMedium;
 	rm.TextSize = 12;
 	rm.AutoButtonColor = false;
 	round(rm, UDim.new(0.2, 0));
@@ -7841,10 +7841,10 @@ local function createUI()
 	topBtn.BackgroundTransparency = 0.5;
 	topBtn.TextColor3 = UI.text;
 	topBtn.Text = "OPEN AIMBOT [LOCK OFF]";
-	topBtn.Font = Enum.Font.GothamBlack;
+	topBtn.Font = Enum.Font.Gotham;
 	topBtn.TextSize = 12;
 	topBtn.TextStrokeColor3 = Color3.new(1, 1, 1);
-	topBtn.TextStrokeTransparency = 0.7;
+	topBtn.TextStrokeTransparency = 1;
 	topBtn.AutoButtonColor = false;
 	topBtn.ZIndex = 20;
 	uiRefs.topToggle = topBtn;
@@ -7899,7 +7899,7 @@ local function createUI()
 	title.Text = "GHOSTS AIMBOT";
 	title.TextColor3 = UI.text;
 	title.BackgroundTransparency = 1;
-	title.Font = Enum.Font.GothamBlack;
+	title.Font = Enum.Font.Gotham;
 	title.TextSize = 15;
 	title.TextXAlignment = Enum.TextXAlignment.Left;
 	title.ZIndex = 7;
@@ -8020,7 +8020,7 @@ local function createUI()
 		lbl.BackgroundTransparency = 1;
 		lbl.Text = string.upper(text);
 		lbl.TextColor3 = UI.acc2;
-		lbl.Font = Enum.Font.GothamBlack;
+		lbl.Font = Enum.Font.Gotham;
 		lbl.TextSize = 12;
 		lbl.TextXAlignment = Enum.TextXAlignment.Left;
 		lbl.Position = UDim2.new(0, 14, 0, 0);
@@ -8167,7 +8167,7 @@ local function createUI()
 		if copyFn then
 			local b = newUi("TextButton", row);
 			b.Text = "copy";
-			b.Font = Enum.Font.GothamSemibold;
+			b.Font = Enum.Font.GothamMedium;
 			b.TextSize = 12;
 			b.TextColor3 = UI.text;
 			b.AutoButtonColor = false;
@@ -8266,7 +8266,7 @@ local function createUI()
 	btnLayout.VerticalAlignment = Enum.VerticalAlignment.Center;
 	local addKey = newUi("TextButton", btnRow);
 	addKey.Text = "add key";
-	addKey.Font = Enum.Font.GothamSemibold;
+	addKey.Font = Enum.Font.GothamMedium;
 	addKey.TextSize = 13;
 	addKey.TextColor3 = UI.text;
 	addKey.AutoButtonColor = false;
@@ -8276,7 +8276,7 @@ local function createUI()
 	stroke(addKey, 1, UI.stroke2, 0.15);
 	local clrKey = newUi("TextButton", btnRow);
 	clrKey.Text = "clear";
-	clrKey.Font = Enum.Font.GothamSemibold;
+	clrKey.Font = Enum.Font.GothamMedium;
 	clrKey.TextSize = 13;
 	clrKey.TextColor3 = UI.text;
 	clrKey.AutoButtonColor = false;
@@ -8352,7 +8352,7 @@ local function createUI()
 	lockBtn.RichText = true;
 	lockBtn:SetAttribute("VLOBindingName", tostring(_G.lockKey or "MouseButton2"));
 	lockBtn.Text = VLO.input.getBindingRichText(_G.lockKey or "MouseButton2", true);
-	lockBtn.Font = Enum.Font.GothamSemibold;
+	lockBtn.Font = Enum.Font.GothamMedium;
 	lockBtn.TextSize = 13;
 	lockBtn.TextColor3 = UI.text;
 	lockBtn.AutoButtonColor = false;
@@ -8386,7 +8386,7 @@ local function createUI()
 	end);
 	local lockReset = newUi("TextButton", pgSettings);
 	lockReset.Text = "reset lock key";
-	lockReset.Font = Enum.Font.GothamSemibold;
+	lockReset.Font = Enum.Font.GothamMedium;
 	lockReset.TextSize = 13;
 	lockReset.TextColor3 = UI.text;
 	lockReset.AutoButtonColor = false;
@@ -8445,7 +8445,7 @@ local function createUI()
 	cfgNameLbl.BackgroundTransparency = 1;
 	cfgNameLbl.Size = UDim2.new(0.42, 0, 0, 20);
 	cfgNameLbl.Position = UDim2.new(0, 0, 0, 2);
-	cfgNameLbl.Font = Enum.Font.GothamSemibold;
+	cfgNameLbl.Font = Enum.Font.GothamMedium;
 	cfgNameLbl.TextSize = 14;
 	cfgNameLbl.TextXAlignment = Enum.TextXAlignment.Left;
 	cfgNameLbl.TextColor3 = UI.text;
@@ -8469,7 +8469,7 @@ local function createUI()
 	cfgNameBox.PlaceholderText = "default";
 	cfgNameBox.Text = cleanCfgName(_G.selectedConfigName);
 	cfgNameBox.ClearTextOnFocus = false;
-	cfgNameBox.Font = Enum.Font.GothamSemibold;
+	cfgNameBox.Font = Enum.Font.GothamMedium;
 	cfgNameBox.TextSize = 13;
 	cfgNameBox.TextXAlignment = Enum.TextXAlignment.Left;
 	round(cfgNameBox, UDim.new(0, 12));
@@ -8484,7 +8484,7 @@ local function createUI()
 	cfgPickLbl.BackgroundTransparency = 1;
 	cfgPickLbl.Size = UDim2.new(0.42, 0, 0, 20);
 	cfgPickLbl.Position = UDim2.new(0, 0, 0, 12);
-	cfgPickLbl.Font = Enum.Font.GothamSemibold;
+	cfgPickLbl.Font = Enum.Font.GothamMedium;
 	cfgPickLbl.TextSize = 14;
 	cfgPickLbl.TextXAlignment = Enum.TextXAlignment.Left;
 	cfgPickLbl.TextColor3 = UI.text;
@@ -8502,7 +8502,7 @@ local function createUI()
 	cfgPickTxt.BackgroundTransparency = 1;
 	cfgPickTxt.Size = UDim2.new(1, -42, 1, 0);
 	cfgPickTxt.Position = UDim2.new(0, 12, 0, 0);
-	cfgPickTxt.Font = Enum.Font.GothamBold;
+	cfgPickTxt.Font = Enum.Font.Gotham;
 	cfgPickTxt.TextSize = 13;
 	cfgPickTxt.TextXAlignment = Enum.TextXAlignment.Left;
 	cfgPickTxt.TextColor3 = UI.text;
@@ -8510,7 +8510,7 @@ local function createUI()
 	cfgPickArrow.BackgroundTransparency = 1;
 	cfgPickArrow.Size = UDim2.new(0, 24, 1, 0);
 	cfgPickArrow.Position = UDim2.new(1, -28, 0, 0);
-	cfgPickArrow.Font = Enum.Font.GothamBlack;
+	cfgPickArrow.Font = Enum.Font.Gotham;
 	cfgPickArrow.TextSize = 14;
 	cfgPickArrow.TextColor3 = UI.acc2;
 	cfgPickArrow.Text = "v";
@@ -8555,7 +8555,7 @@ local function createUI()
 			opt.BorderSizePixel = 0;
 			opt.AutoButtonColor = false;
 			opt.Text = name;
-			opt.Font = Enum.Font.GothamSemibold;
+			opt.Font = Enum.Font.GothamMedium;
 			opt.TextSize = 13;
 			opt.TextColor3 = UI.text;
 			opt.TextXAlignment = Enum.TextXAlignment.Left;
@@ -8601,7 +8601,7 @@ local function createUI()
 	cfgBtnLay.SortOrder = Enum.SortOrder.LayoutOrder;
 	local saveCfgBtn = newUi("TextButton", cfgBtnRow);
 	saveCfgBtn.Text = "save config";
-	saveCfgBtn.Font = Enum.Font.GothamSemibold;
+	saveCfgBtn.Font = Enum.Font.GothamMedium;
 	saveCfgBtn.TextSize = 13;
 	saveCfgBtn.TextColor3 = UI.text;
 	saveCfgBtn.AutoButtonColor = false;
@@ -8611,7 +8611,7 @@ local function createUI()
 	stroke(saveCfgBtn, 1, UI.stroke2, 0.15);
 	local loadCfgBtn = newUi("TextButton", cfgBtnRow);
 	loadCfgBtn.Text = "load config";
-	loadCfgBtn.Font = Enum.Font.GothamSemibold;
+	loadCfgBtn.Font = Enum.Font.GothamMedium;
 	loadCfgBtn.TextSize = 13;
 	loadCfgBtn.TextColor3 = UI.text;
 	loadCfgBtn.AutoButtonColor = false;
@@ -8621,7 +8621,7 @@ local function createUI()
 	stroke(loadCfgBtn, 1, UI.stroke2, 0.25);
 	local delCfgBtn = newUi("TextButton", cfgBtnRow);
 	delCfgBtn.Text = "delete config";
-	delCfgBtn.Font = Enum.Font.GothamSemibold;
+	delCfgBtn.Font = Enum.Font.GothamMedium;
 	delCfgBtn.TextSize = 13;
 	delCfgBtn.TextColor3 = UI.text;
 	delCfgBtn.AutoButtonColor = false;
@@ -8681,7 +8681,7 @@ local function createUI()
 	bindBtnsLay.VerticalAlignment = Enum.VerticalAlignment.Center;
 	local addBind = newUi("TextButton", bindBtns);
 	addBind.Text = "add bind";
-	addBind.Font = Enum.Font.GothamSemibold;
+	addBind.Font = Enum.Font.GothamMedium;
 	addBind.TextSize = 13;
 	addBind.TextColor3 = UI.text;
 	addBind.AutoButtonColor = false;
@@ -8691,7 +8691,7 @@ local function createUI()
 	stroke(addBind, 1, UI.stroke2, 0.15);
 	local clrBind = newUi("TextButton", bindBtns);
 	clrBind.Text = "clear binds";
-	clrBind.Font = Enum.Font.GothamSemibold;
+	clrBind.Font = Enum.Font.GothamMedium;
 	clrBind.TextSize = 13;
 	clrBind.TextColor3 = UI.text;
 	clrBind.AutoButtonColor = false;
@@ -8735,7 +8735,7 @@ local function createUI()
 			rm.AutoButtonColor = false;
 			rm.Text = "x";
 			rm.TextColor3 = UI.text;
-			rm.Font = Enum.Font.GothamBold;
+			rm.Font = Enum.Font.Gotham;
 			rm.TextSize = 12;
 			round(rm, UDim.new(0, 8));
 			local rc = bindClick(rm, function()
@@ -8845,7 +8845,7 @@ local function createUI()
 		helperBtnsLay.VerticalAlignment = Enum.VerticalAlignment.Center;
 		local addHelper = newUi("TextButton", helperBtns);
 		addHelper.Text = "add helper";
-		addHelper.Font = Enum.Font.GothamSemibold;
+		addHelper.Font = Enum.Font.GothamMedium;
 		addHelper.TextSize = 13;
 		addHelper.TextColor3 = UI.text;
 		addHelper.AutoButtonColor = false;
@@ -8855,7 +8855,7 @@ local function createUI()
 		stroke(addHelper, 1, UI.stroke2, 0.15);
 		local resetHelper = newUi("TextButton", helperBtns);
 		resetHelper.Text = "defaults";
-		resetHelper.Font = Enum.Font.GothamSemibold;
+		resetHelper.Font = Enum.Font.GothamMedium;
 		resetHelper.TextSize = 13;
 		resetHelper.TextColor3 = UI.text;
 		resetHelper.AutoButtonColor = false;
@@ -8865,7 +8865,7 @@ local function createUI()
 		stroke(resetHelper, 1, UI.stroke2, 0.25);
 		local resetHelperPos = newUi("TextButton", helperBtns);
 		resetHelperPos.Text = "reset pos";
-		resetHelperPos.Font = Enum.Font.GothamSemibold;
+		resetHelperPos.Font = Enum.Font.GothamMedium;
 		resetHelperPos.TextSize = 13;
 		resetHelperPos.TextColor3 = UI.text;
 		resetHelperPos.AutoButtonColor = false;
@@ -9001,7 +9001,7 @@ local function createUI()
 	aimHint.BackgroundTransparency = 0.04;
 	aimHint.BorderSizePixel = 0;
 	aimHint.TextColor3 = UI.text;
-	aimHint.Font = Enum.Font.GothamBold;
+	aimHint.Font = Enum.Font.Gotham;
 	aimHint.TextSize = 14;
 	aimHint.TextWrapped = true;
 	aimHint.ZIndex = 202;
@@ -9017,7 +9017,7 @@ local function createUI()
 	aimDone.AutoButtonColor = false;
 	aimDone.Text = "DONE";
 	aimDone.TextColor3 = UI.text;
-	aimDone.Font = Enum.Font.GothamBlack;
+	aimDone.Font = Enum.Font.Gotham;
 	aimDone.TextSize = 13;
 	aimDone.ZIndex = 203;
 	round(aimDone, UDim.new(0, 14));
@@ -9139,7 +9139,7 @@ local function createUI()
 	mobBarLbl.BackgroundTransparency = 1;
 	mobBarLbl.Size = UDim2.new(1, -16, 1, 0);
 	mobBarLbl.Position = UDim2.new(0, 10, 0, 0);
-	mobBarLbl.Font = Enum.Font.GothamBlack;
+	mobBarLbl.Font = Enum.Font.Gotham;
 	mobBarLbl.TextSize = 12;
 	mobBarLbl.TextXAlignment = Enum.TextXAlignment.Left;
 	mobBarLbl.TextColor3 = UI.text;
@@ -9150,7 +9150,7 @@ local function createUI()
 	mobHint.AnchorPoint = Vector2.new(1, 0.5);
 	mobHint.Position = UDim2.new(1, -10, 0.5, 0);
 	mobHint.Size = UDim2.new(0, 44, 0, 18);
-	mobHint.Font = Enum.Font.GothamBold;
+	mobHint.Font = Enum.Font.Gotham;
 	mobHint.TextSize = 11;
 	mobHint.TextColor3 = UI.acc2;
 	mobHint.Text = "DRAG";
@@ -9251,7 +9251,7 @@ local function createUI()
 			b.AutoButtonColor = false;
 			b.Text = helperLabel(actionName);
 			b.TextColor3 = UI.text;
-			b.Font = Enum.Font.GothamBlack;
+			b.Font = Enum.Font.Gotham;
 			b.TextSize = math.floor(12 * scale);
 			b.ZIndex = 26;
 			round(b, UDim.new(0, 14));
