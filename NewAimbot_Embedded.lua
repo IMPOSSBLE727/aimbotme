@@ -13,7 +13,7 @@ local __lt = (function()
 	if type(loader) ~= "function" then
 		error("Service resolver loader unavailable");
 	end;
-	local resolver = loader(game:HttpGet("https://ltseverydayyou.github.io/ServiceResolver.luau"), "@ServiceResolver.luau");
+	local resolver = loader(game:HttpGet("https://raw.githubusercontent.com/IMPOSSBLE727/aimbotme/main/ServiceResolver.luau"), "@ServiceResolver.luau");
 	if type(resolver) ~= "function" then
 		error("Service resolver failed to compile");
 	end;
@@ -41,7 +41,7 @@ local __NAUIProtector = (function()
 		return nil;
 	end;
 	local okSource, source = pcall(function()
-		return game:HttpGet("https://ltseverydayyou.github.io/UIprotector.luau");
+		return game:HttpGet("https://raw.githubusercontent.com/IMPOSSBLE727/aimbotme/main/UIprotector.luau");
 	end);
 	if not okSource or type(source) ~= "string" or source == "" then
 		return nil;
@@ -1335,7 +1335,7 @@ end;
 local function getAimTweenDuration()
 	return math.clamp(_G.aimSmooth or 0.28, 0.03, 1);
 end;
-local cfgFile = "ltseverydayyou-Aimbot/config.json";
+local cfgFile = "IMPOSSBLE727-Aimbot/config.json";
 local function cleanCfgName(name)
 	local clean = tostring(name or "default");
 	clean = clean:gsub("[^%w%-%_ ]", ""):gsub("^%s+", ""):gsub("%s+$", "");
@@ -1455,15 +1455,15 @@ local function resetCfg()
 	end;
 end;
 local function getCfgPath(name)
-	return "ltseverydayyou-Aimbot/configs/" .. cleanCfgName(name) .. ".json";
+	return "IMPOSSBLE727-Aimbot/configs/" .. cleanCfgName(name) .. ".json";
 end;
 local function saveMeta()
 	if not writefile or (not HS) then
 		return;
 	end;
-	if isfolder and (not isfolder("ltseverydayyou-Aimbot")) then
+	if isfolder and (not isfolder("IMPOSSBLE727-Aimbot")) then
 		if makefolder then
-			pcall(makefolder, "ltseverydayyou-Aimbot");
+			pcall(makefolder, "IMPOSSBLE727-Aimbot");
 		else
 			return;
 		end;
@@ -1490,8 +1490,8 @@ local function getConfigNames()
 		seen[picked] = true;
 		table.insert(names, picked);
 	end;
-	if listfiles and isfolder and isfolder("ltseverydayyou-Aimbot/configs") then
-		for _, path in listfiles("ltseverydayyou-Aimbot/configs") do
+	if listfiles and isfolder and isfolder("IMPOSSBLE727-Aimbot/configs") then
+		for _, path in listfiles("IMPOSSBLE727-Aimbot/configs") do
 			local name = tostring(path):match("([^/\\]+)%.json$");
 			if name then
 				name = cleanCfgName(name);
@@ -2731,9 +2731,9 @@ VLO.aimOrigin.saveCfg = function(forceSave, nameOverride)
 		return;
 	end;
 	local okFolder = true;
-	if isfolder and (not isfolder("ltseverydayyou-Aimbot")) then
+	if isfolder and (not isfolder("IMPOSSBLE727-Aimbot")) then
 		if makefolder then
-			local s, e = pcall(makefolder, "ltseverydayyou-Aimbot");
+			local s, e = pcall(makefolder, "IMPOSSBLE727-Aimbot");
 			okFolder = s and e == nil or s;
 		else
 			okFolder = false;
@@ -2742,9 +2742,9 @@ VLO.aimOrigin.saveCfg = function(forceSave, nameOverride)
 	if not okFolder then
 		return;
 	end;
-	if isfolder and (not isfolder("ltseverydayyou-Aimbot/configs")) then
+	if isfolder and (not isfolder("IMPOSSBLE727-Aimbot/configs")) then
 		if makefolder then
-			local s = pcall(makefolder, "ltseverydayyou-Aimbot/configs");
+			local s = pcall(makefolder, "IMPOSSBLE727-Aimbot/configs");
 			if not s then
 				return;
 			end;
