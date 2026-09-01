@@ -9,10 +9,6 @@ local __lt = (function()
 			return cached;
 		end;
 	end;
-	local loader = loadstring or load;
-	if type(loader) ~= "function" then
-		error("Service resolver loader unavailable");
-	end;
 	local resolver = (function() --!nonstrict
 
 local function safeGetGlobalEnv()
@@ -284,9 +280,7 @@ local __NAUIProtector = (function()
 			return cached;
 		end;
 	end;
-	local loaderFn = loadstring or load;
-	if type(loaderFn) ~= "function" then return nil end;
-	local ok, loaded = pcall(loaderFn, [=[--!nonstrict
+	local okRun, result = pcall(function() --!nonstrict
 
 local build = "shared_hui_singleton_v4"
 local patch = "luau_module_global_gethui_override_coregui_folder_v7"
@@ -2161,10 +2155,8 @@ end
 protector.setTableReadonly(protector, true)
 
 return protector
-]=], "@UIprotector.luau");
-	if ok and type(loaded) == "function" then
-		local okRun, result = pcall(loaded);
-		if okRun and type(result) == "table" then
+end);
+	if okRun and type(result) == "table" then
 			if cacheHost then
 				cacheHost.__lt_ui_protector = result;
 			end;
