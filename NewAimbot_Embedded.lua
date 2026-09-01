@@ -9,7 +9,7 @@ local __lt = (function()
 			return cached;
 		end;
 	end;
-	local resolver = (function() --!nonstrict
+	local resolver = (function()
 
 local function safeGetGlobalEnv()
 	local ok, env = pcall(function()
@@ -31,7 +31,7 @@ local function safeGetGlobalEnv()
 	return {}
 end
 
-local function safeSharedEnv(): AnyTable?
+local function safeSharedEnv()
 	local ok, env = pcall(function()
 		return shared
 	end)
@@ -71,20 +71,20 @@ pcall(function()
 	end
 end)
 
-local __lt: Resolver = {
+local __lt = {
 	cr = cloneRefFn,
 	svc = {
 		cache = {},
 		fallback = {},
 		invalid = {},
 	},
-} :: any
+} 
 
-function __lt.sv(value: any): boolean
+function __lt.sv(value)
 	return typeof(value) == "Instance"
 end
 
-function __lt.fs(name: string): Instance?
+function __lt.fs(name)
 	local ok, service = pcall(function()
 		return game:FindService(name)
 	end)
@@ -96,7 +96,7 @@ function __lt.fs(name: string): Instance?
 	return nil
 end
 
-function __lt.gfs(name: string): Instance?
+function __lt.gfs(name)
 	local ok, service = pcall(function()
 		return game:GetService(name)
 	end)
@@ -108,7 +108,7 @@ function __lt.gfs(name: string): Instance?
 	return nil
 end
 
-function __lt.ns(name: string): Instance?
+function __lt.ns(name)
 	local ok, service = pcall(Instance.new, name)
 
 	if ok and __lt.sv(service) then
@@ -118,7 +118,7 @@ function __lt.ns(name: string): Instance?
 	return nil
 end
 
-function __lt.gs(name: string): Instance?
+function __lt.gs(name)
 	local cached = __lt.svc.cache[name]
 	local isFallback = __lt.svc.fallback[name] == true
 
@@ -129,7 +129,7 @@ function __lt.gs(name: string): Instance?
 	local service = __lt.fs(name)
 	if __lt.sv(service) then
 		__lt.svc.invalid[name] = nil
-		__lt.svc.cache[name] = service :: Instance
+		__lt.svc.cache[name] = service 
 		__lt.svc.fallback[name] = nil
 		return service
 	end
@@ -144,7 +144,7 @@ function __lt.gs(name: string): Instance?
 
 	service = __lt.ns(name)
 	if __lt.sv(service) then
-		__lt.svc.cache[name] = service :: Instance
+		__lt.svc.cache[name] = service 
 		__lt.svc.fallback[name] = true
 		return service
 	end
@@ -152,7 +152,7 @@ function __lt.gs(name: string): Instance?
 	service = __lt.gfs(name)
 	if __lt.sv(service) then
 		__lt.svc.invalid[name] = nil
-		__lt.svc.cache[name] = service :: Instance
+		__lt.svc.cache[name] = service 
 		__lt.svc.fallback[name] = nil
 		return service
 	end
@@ -161,7 +161,7 @@ function __lt.gs(name: string): Instance?
 	return nil
 end
 
-function __lt.cv(value: any): any
+function __lt.cv(value)
 	if __lt.cr and typeof(value) == "Instance" then
 		local ok, cloned = pcall(__lt.cr, value)
 		if ok and cloned ~= nil then
@@ -172,7 +172,7 @@ function __lt.cv(value: any): any
 	return value
 end
 
-function __lt.cs(name: string, refFn: any): Instance?
+function __lt.cs(name, refFn)
 	if type(refFn) ~= "function" then
 		return __lt.gs(name)
 	end
@@ -224,7 +224,7 @@ function __lt.cs(name: string, refFn: any): Instance?
 	return nil
 end
 
-function __lt.ig(method: string): boolean
+function __lt.ig(method)
 	return method == "FindFirstChild"
 		or method == "WaitForChild"
 		or method == "FindFirstChildOfClass"
@@ -237,13 +237,13 @@ function __lt.ig(method: string): boolean
 		or method == "QueryDescendants"
 end
 
-function __lt.cm(name: string, method: string, ...: any): any
+function __lt.cm(name, method, ...)
 	local service = __lt.cs(name, __lt.cr)
 	if not __lt.sv(service) then
 		error(string.format("Service %s could not be resolved", tostring(name)))
 	end
 
-	local fn = (service :: any)[method]
+	local fn = (service )[method]
 	if type(fn) ~= "function" then
 		error(string.format("Service method %s.%s is not callable", tostring(name), tostring(method)))
 	end
@@ -280,7 +280,7 @@ local __NAUIProtector = (function()
 			return cached;
 		end;
 	end;
-	local okRun, result = pcall(function() --!nonstrict
+	local okRun, result = pcall(function()
 
 local build = "shared_hui_singleton_v4"
 local patch = "luau_module_global_gethui_override_coregui_folder_v7"
@@ -309,7 +309,7 @@ if type(sharedEnv) ~= "table" then
 end
 
 local cacheKey = "__lt_ui_protector"
-local cacheHosts: { AnyTable } = {}
+local cacheHosts: {} = {}
 
 local function addCacheHost(t)
 	if type(t) ~= "table" then
@@ -372,9 +372,9 @@ if type(cached) == "table" then
 	end)
 end
 
-local protector: AnyTable = {}
+local protector = {}
 
-local state: AnyTable = {
+local state = {
 	customHui = nil,
 	screenGui = nil,
 	rawHui = nil,
@@ -524,11 +524,11 @@ local function getFunc(name)
 	return nil
 end
 
-function protector.has(name: string): boolean
+function protector.has(name)
 	return type(getFunc(name)) == "function"
 end
 
-function protector.getFunction(name: string): any
+function protector.getFunction(name)
 	return getFunc(name)
 end
 
@@ -999,12 +999,12 @@ local function localSessionName(key)
 	return ret
 end
 
-function protector.setSessionNameProvider(fn: any): boolean
+function protector.setSessionNameProvider(fn)
 	state.sessionNameProvider = type(fn) == "function" and fn or nil
 	return state.sessionNameProvider ~= nil
 end
 
-function protector.getSessionInstanceName(key: any): string
+function protector.getSessionInstanceName(key)
 	local fn = state.sessionNameProvider
 	if type(fn) == "function" then
 		local ok, ret = pcall(fn, key)
@@ -1016,7 +1016,7 @@ function protector.getSessionInstanceName(key: any): string
 	return localSessionName(key)
 end
 
-function protector.randomString(key: any): string
+function protector.randomString(key)
 	local out = {}
 	local sessionKey = key or nextSessionKey("random")
 	local sess = protector.getSessionInstanceName(sessionKey)
@@ -1039,7 +1039,7 @@ function protector.randomString(key: any): string
 	return "\0"
 end
 
-function protector.nativeProtect(obj: any): any
+function protector.nativeProtect(obj)
 	if not isInstance(obj) then
 		return obj
 	end
@@ -1061,7 +1061,7 @@ function protector.nativeProtect(obj: any): any
 	return obj
 end
 
-function protector.setTableReadonly(tbl: any, value: any): any
+function protector.setTableReadonly(tbl, value)
 	if type(tbl) ~= "table" then
 		return tbl
 	end
@@ -1095,7 +1095,7 @@ local function rawHui()
 	return state.rawHui
 end
 
-function protector.rawHuiGrabber(): Instance?
+function protector.rawHuiGrabber()
 	return rawHui()
 end
 
@@ -1170,11 +1170,11 @@ local function huiKind(obj)
 	return "other"
 end
 
-function protector.getRawHuiKind(): string?
+function protector.getRawHuiKind()
 	return huiKind(rawHui())
 end
 
-function protector.getBaseParent(): Instance?
+function protector.getBaseParent()
 	local coreGui = getService("CoreGui")
 
 	if isInstance(coreGui) then
@@ -1345,7 +1345,7 @@ startWatchdog = function()
 	end)
 end
 
-function protector.lockInstance(obj: any, props: PropertyMap): any
+function protector.lockInstance(obj, props)
 	if not isInstance(obj) or type(props) ~= "table" then
 		return obj
 	end
@@ -1412,7 +1412,7 @@ function protector.lockInstance(obj: any, props: PropertyMap): any
 	return obj
 end
 
-function protector.harden(obj: any, opts: any): any
+function protector.harden(obj, opts)
 	if not isInstance(obj) then
 		return obj
 	end
@@ -1443,7 +1443,7 @@ function protector.harden(obj: any, opts: any): any
 	return obj
 end
 
-function protector.protectInstance(obj: any, opts: any): any
+function protector.protectInstance(obj, opts)
 	if not isInstance(obj) then
 		return nil
 	end
@@ -1489,7 +1489,7 @@ function protector.protectInstance(obj: any, opts: any): any
 	return obj
 end
 
-function protector.protectCachedInternal(obj: any, opts: any): any
+function protector.protectCachedInternal(obj, opts)
 	opts = type(opts) == "table" and opts or {}
 	opts.renameRoot = opts.renameRoot ~= false
 	opts.renameDescendants = opts.renameDescendants == true
@@ -1598,7 +1598,7 @@ local function protectNativeScreen(gui)
 	return gui
 end
 
-function protector.getCustomHui(parent: any): Instance?
+function protector.getCustomHui(parent)
 	parent = getFolderParent(parent)
 
 	if not isInstance(parent) then
@@ -1717,7 +1717,7 @@ local function absorbScreenHui(screen)
 	return folder
 end
 
-function protector.huiGrabber(): Instance?
+function protector.huiGrabber()
 	local hidden = protector.rawHuiGrabber()
 	local kind = huiKind(hidden)
 
@@ -1744,7 +1744,7 @@ function protector.huiGrabber(): Instance?
 	return protector.getCustomHui()
 end
 
-function protector.getScreenGui(name: any): Instance?
+function protector.getScreenGui(name)
 	local hidden = protector.huiGrabber()
 
 	if isInstance(hidden) and isA(hidden, "ScreenGui") then
@@ -1774,7 +1774,7 @@ function protector.getScreenGui(name: any): Instance?
 	return protectScreen(gui, hidden, name)
 end
 
-function protector.resolveParent(opts: any): Instance?
+function protector.resolveParent(opts)
 	opts = type(opts) == "table" and opts or {}
 
 	local fromResolver = tryCall(opts.parentResolver)
@@ -1794,11 +1794,11 @@ function protector.resolveParent(opts: any): Instance?
 	return protector.getCustomHui()
 end
 
-function protector.parent(): Instance?
+function protector.parent()
 	return protector.huiGrabber()
 end
 
-function protector.protectUI(gui: any, opts: any): any
+function protector.protectUI(gui, opts)
 	if not isInstance(gui) then
 		return nil
 	end
@@ -1866,7 +1866,7 @@ function protector.protectUI(gui: any, opts: any): any
 	return gui
 end
 
-function protector.protectName(obj: any, prop: any): any
+function protector.protectName(obj, prop)
 	if not isInstance(obj) then
 		return nil
 	end
@@ -1878,7 +1878,7 @@ function protector.protectName(obj: any, prop: any): any
 	return obj
 end
 
-function protector.installGetHuiOverride(): boolean
+function protector.installGetHuiOverride()
 	local function customGetHui()
 		return protector.huiGrabber()
 	end
@@ -1938,11 +1938,11 @@ function protector.installGetHuiOverride(): boolean
 	return state.installed
 end
 
-function protector.install(): boolean
+function protector.install()
 	return protector.installGetHuiOverride()
 end
 
-function protector.restore(): ()
+function protector.restore()
 	local native = state.nativeHuiFns
 	local names = {
 		gethui = native.gethui,
@@ -1986,7 +1986,7 @@ function protector.restore(): ()
 	end)
 end
 
-function protector.cleanup(obj: any?): ()
+function protector.cleanup(obj)
 	if isInstance(obj) then
 		local list = state.connections[obj]
 
@@ -2066,7 +2066,7 @@ function protector.cleanup(obj: any?): ()
 	end
 end
 
-function protector.destroy(): ()
+function protector.destroy()
 	protector.cleanup()
 	protector.restore()
 
@@ -2089,7 +2089,7 @@ function protector.destroy(): ()
 	state.customHui = nil
 end
 
-function protector.support(): AnyTable
+function protector.support()
 	local names = {
 		"gethui",
 		"gethiddenui",
@@ -2115,7 +2115,7 @@ function protector.support(): AnyTable
 	return result
 end
 
-function protector.status(): AnyTable
+function protector.status()
 	local raw = rawHui()
 	local parent = protector.huiGrabber()
 	local screen = protector.getScreenGui()
