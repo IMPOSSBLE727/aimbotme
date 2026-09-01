@@ -1,7 +1,19 @@
--- TEST 3: HttpGet from YOUR repo
-local content = game:HttpGet("https://raw.githubusercontent.com/IMPOSSBLE727/aimbotme/main/test1_tiny.lua")
-if content and content ~= "" then
-    print("TEST 3 OK - Got " .. #content .. " bytes from your repo")
-else
-    print("TEST 3 FAIL - Empty response")
+-- TEST 4: Try loading the embedded aimbot with error reporting
+local url = "https://raw.githubusercontent.com/IMPOSSBLE727/aimbotme/main/NewAimbot_Embedded.lua"
+local ok, err = pcall(function()
+    local content = game:HttpGet(url)
+    if not content or content == "" then
+        error("HttpGet returned empty")
+    end
+    print("HttpGet OK - Got " .. #content .. " bytes")
+    local fn, compileErr = loadstring(content)
+    if not fn then
+        error("Compile error: " .. tostring(compileErr))
+    end
+    print("Compile OK - executing...")
+    fn()
+    print("Execute OK")
+end)
+if not ok then
+    print("ERROR: " .. tostring(err))
 end
