@@ -7889,6 +7889,7 @@ local function createUI()
 	bar.BackgroundTransparency = 0.5;
 	bar.BorderSizePixel = 0;
 	bar.ZIndex = 6;
+	bar.ClipsDescendants = true;
 	round(bar, UDim.new(0, 24));
 	stroke(bar, 1, Color3.fromRGB(255, 255, 255), 0.3);
 	noGrad(bar);
@@ -7907,7 +7908,10 @@ local function createUI()
 	setUiTag(btnX, "Close");
 	btnX.Size = UDim2.new(0, 18, 0, 18);
 	btnX.Position = UDim2.new(1, -24, 0.5, -9);
-	btnX.Text = "";
+	btnX.Text = "✕";
+	btnX.TextColor3 = Color3.fromRGB(0, 0, 0);
+	btnX.Font = Enum.Font.Gotham;
+	btnX.TextSize = 11;
 	btnX.BackgroundColor3 = UI.danger;
 	btnX.BorderSizePixel = 0;
 	btnX.AutoButtonColor = false;
@@ -7916,7 +7920,10 @@ local function createUI()
 	setUiTag(btnMin, "Min");
 	btnMin.Size = UDim2.new(0, 18, 0, 18);
 	btnMin.Position = UDim2.new(1, -48, 0.5, -9);
-	btnMin.Text = "";
+	btnMin.Text = "−";
+	btnMin.TextColor3 = Color3.fromRGB(0, 0, 0);
+	btnMin.Font = Enum.Font.Gotham;
+	btnMin.TextSize = 13;
 	btnMin.BackgroundColor3 = UI.warn;
 	btnMin.BorderSizePixel = 0;
 	btnMin.AutoButtonColor = false;
