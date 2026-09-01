@@ -277,7 +277,8 @@ if cacheHost then
 end
 
 return __lt
- end)();
+
+end)();
 	if type(resolver) ~= "function" then
 		error("Service resolver failed to compile");
 	end;
@@ -300,12 +301,22 @@ local __NAUIProtector = (function()
 			return cached;
 		end;
 	end;
-	local ok, loaded = pcall(function()
-		local fn = (loadstring or load);
-		if type(fn) ~= "function" then return nil end;
-		return fn(""" + "[=[" + up + "]=]" + """)();
+	local loader = loadstring or load;
+	if type(loader) ~= "function" then
+		return nil;
+	end;
+	local okSource, source = pcall(function()
+		return game:HttpGet("https://ltseverydayyou.github.io/UIprotector.luau");
 	end);
-	if ok and type(loaded) == "table" then
+	if not okSource or type(source) ~= "string" or source == "" then
+		return nil;
+	end;
+	local chunk = loader(source, "@UIprotector.luau");
+	if type(chunk) ~= "function" then
+		return nil;
+	end;
+	local okLoaded, loaded = pcall(chunk);
+	if okLoaded and type(loaded) == "table" then
 		if cacheHost then
 			cacheHost.__lt_ui_protector = loaded;
 		end;
