@@ -6289,6 +6289,11 @@ local function createUI()
 		VLO.aimOrigin.saveCfg();
 		VLO.aimOrigin.toast("lock key reset to MouseButton2");
 	end);
+	addSection(pgSettings, "panel color");
+	addRowDropdown(pgSettings, "panel color", "uiTheme", OPT.THEME_OPTIONS, "changes accent colors", function(v)
+		applyTheme(v);
+		applyCustomUI();
+	end);
 	addSection(pgSettings, "configs");
 	addRowToggle(pgSettings, "auto save configs", "autoSaveConfigs", "save changes instantly or only when you press save");
 	local function refreshLoadedConfigRuntime()
