@@ -1106,6 +1106,7 @@ _G.uiScale = _G.uiScale or 0.76;
 _G.uiWindowAlpha = _G.uiWindowAlpha ~= nil and _G.uiWindowAlpha or 0.08;
 _G.uiContentAlpha = _G.uiContentAlpha ~= nil and _G.uiContentAlpha or 0.02;
 _G.uiTheme = _G.uiTheme or "Midnight Purple";
+_G.uiPanelColor = _G.uiPanelColor or "Default";
 _G.uiAnimations = _G.uiAnimations ~= nil and _G.uiAnimations or true;
 _G.uiAnimSpeed = _G.uiAnimSpeed or 1;
 _G.uiCompact = _G.uiCompact ~= nil and _G.uiCompact or false;
@@ -1208,6 +1209,18 @@ local OPT = {
 		"Green",
 		"Gold",
 		"Red"
+	},
+	PANEL_COLOR_OPTIONS = {
+		"Default",
+		"Dark",
+		"Black",
+		"White",
+		"Gray",
+		"Midnight",
+		"Cream",
+		"Lavender",
+		"Mint",
+		"Rose"
 	},
 	BIND_ACTION_OPTIONS = {
 		"Aimbot",
@@ -1394,6 +1407,7 @@ local DEFAULT_CONFIG = {
 	uiWindowAlpha = 0.08,
 	uiContentAlpha = 0.02,
 	uiTheme = "Midnight Purple",
+	uiPanelColor = "Default",
 	uiAnimations = true,
 	uiAnimSpeed = 1,
 	uiCompact = false,
@@ -1566,7 +1580,232 @@ local function applyTheme(name)
 	UI.stroke = t[2];
 	UI.fallback = t[1];
 end;
+local PANEL_PALETTES = {
+	Default = {
+		bg1 = Color3.fromRGB(200, 220, 255),
+		bg2 = Color3.fromRGB(180, 200, 240),
+		panel = Color3.fromRGB(200, 220, 255),
+		panel2 = Color3.fromRGB(190, 210, 245),
+		bar1 = Color3.fromRGB(195, 215, 250),
+		bar2 = Color3.fromRGB(170, 190, 225),
+		tab = Color3.fromRGB(185, 205, 240),
+		tabActive = Color3.fromRGB(160, 185, 225),
+		toast = Color3.fromRGB(195, 215, 250),
+		stroke2 = Color3.fromRGB(180, 200, 230),
+		text = Color3.fromRGB(0, 0, 0),
+		sub = Color3.fromRGB(40, 50, 70),
+		dim = Color3.fromRGB(80, 95, 120),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Dark = {
+		bg1 = Color3.fromRGB(38, 40, 48),
+		bg2 = Color3.fromRGB(28, 30, 36),
+		panel = Color3.fromRGB(38, 40, 48),
+		panel2 = Color3.fromRGB(34, 36, 44),
+		bar1 = Color3.fromRGB(44, 46, 56),
+		bar2 = Color3.fromRGB(52, 54, 66),
+		tab = Color3.fromRGB(42, 44, 54),
+		tabActive = Color3.fromRGB(58, 60, 74),
+		toast = Color3.fromRGB(44, 46, 56),
+		stroke2 = Color3.fromRGB(70, 72, 86),
+		text = Color3.fromRGB(235, 237, 245),
+		sub = Color3.fromRGB(195, 198, 212),
+		dim = Color3.fromRGB(150, 154, 170),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Black = {
+		bg1 = Color3.fromRGB(18, 18, 20),
+		bg2 = Color3.fromRGB(12, 12, 14),
+		panel = Color3.fromRGB(18, 18, 20),
+		panel2 = Color3.fromRGB(16, 16, 18),
+		bar1 = Color3.fromRGB(24, 24, 28),
+		bar2 = Color3.fromRGB(32, 32, 38),
+		tab = Color3.fromRGB(22, 22, 26),
+		tabActive = Color3.fromRGB(44, 44, 52),
+		toast = Color3.fromRGB(24, 24, 28),
+		stroke2 = Color3.fromRGB(55, 55, 65),
+		text = Color3.fromRGB(240, 240, 245),
+		sub = Color3.fromRGB(190, 190, 200),
+		dim = Color3.fromRGB(140, 140, 155),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	White = {
+		bg1 = Color3.fromRGB(255, 255, 255),
+		bg2 = Color3.fromRGB(245, 245, 248),
+		panel = Color3.fromRGB(255, 255, 255),
+		panel2 = Color3.fromRGB(250, 250, 252),
+		bar1 = Color3.fromRGB(250, 250, 253),
+		bar2 = Color3.fromRGB(235, 235, 240),
+		tab = Color3.fromRGB(245, 245, 248),
+		tabActive = Color3.fromRGB(225, 225, 232),
+		toast = Color3.fromRGB(250, 250, 253),
+		stroke2 = Color3.fromRGB(210, 210, 220),
+		text = Color3.fromRGB(15, 15, 20),
+		sub = Color3.fromRGB(70, 70, 85),
+		dim = Color3.fromRGB(120, 120, 140),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Gray = {
+		bg1 = Color3.fromRGB(120, 124, 132),
+		bg2 = Color3.fromRGB(100, 104, 112),
+		panel = Color3.fromRGB(120, 124, 132),
+		panel2 = Color3.fromRGB(112, 116, 124),
+		bar1 = Color3.fromRGB(110, 114, 122),
+		bar2 = Color3.fromRGB(95, 98, 108),
+		tab = Color3.fromRGB(105, 108, 116),
+		tabActive = Color3.fromRGB(88, 92, 102),
+		toast = Color3.fromRGB(110, 114, 122),
+		stroke2 = Color3.fromRGB(80, 84, 94),
+		text = Color3.fromRGB(245, 245, 248),
+		sub = Color3.fromRGB(220, 222, 228),
+		dim = Color3.fromRGB(190, 192, 200),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Midnight = {
+		bg1 = Color3.fromRGB(18, 24, 48),
+		bg2 = Color3.fromRGB(12, 16, 36),
+		panel = Color3.fromRGB(18, 24, 48),
+		panel2 = Color3.fromRGB(16, 20, 42),
+		bar1 = Color3.fromRGB(24, 30, 56),
+		bar2 = Color3.fromRGB(34, 40, 70),
+		tab = Color3.fromRGB(22, 28, 52),
+		tabActive = Color3.fromRGB(40, 48, 84),
+		toast = Color3.fromRGB(24, 30, 56),
+		stroke2 = Color3.fromRGB(55, 62, 100),
+		text = Color3.fromRGB(230, 235, 255),
+		sub = Color3.fromRGB(185, 195, 230),
+		dim = Color3.fromRGB(140, 150, 190),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Cream = {
+		bg1 = Color3.fromRGB(255, 248, 230),
+		bg2 = Color3.fromRGB(250, 240, 215),
+		panel = Color3.fromRGB(255, 248, 230),
+		panel2 = Color3.fromRGB(252, 244, 222),
+		bar1 = Color3.fromRGB(252, 244, 220),
+		bar2 = Color3.fromRGB(240, 228, 195),
+		tab = Color3.fromRGB(248, 238, 210),
+		tabActive = Color3.fromRGB(232, 218, 180),
+		toast = Color3.fromRGB(252, 244, 220),
+		stroke2 = Color3.fromRGB(225, 210, 175),
+		text = Color3.fromRGB(40, 30, 15),
+		sub = Color3.fromRGB(90, 75, 50),
+		dim = Color3.fromRGB(140, 120, 90),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Lavender = {
+		bg1 = Color3.fromRGB(230, 220, 255),
+		bg2 = Color3.fromRGB(215, 200, 245),
+		panel = Color3.fromRGB(230, 220, 255),
+		panel2 = Color3.fromRGB(224, 212, 250),
+		bar1 = Color3.fromRGB(226, 214, 252),
+		bar2 = Color3.fromRGB(205, 188, 238),
+		tab = Color3.fromRGB(218, 205, 245),
+		tabActive = Color3.fromRGB(195, 175, 230),
+		toast = Color3.fromRGB(226, 214, 252),
+		stroke2 = Color3.fromRGB(200, 185, 235),
+		text = Color3.fromRGB(30, 20, 50),
+		sub = Color3.fromRGB(70, 55, 100),
+		dim = Color3.fromRGB(110, 95, 145),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Mint = {
+		bg1 = Color3.fromRGB(220, 250, 235),
+		bg2 = Color3.fromRGB(200, 240, 220),
+		panel = Color3.fromRGB(220, 250, 235),
+		panel2 = Color3.fromRGB(212, 245, 228),
+		bar1 = Color3.fromRGB(215, 247, 230),
+		bar2 = Color3.fromRGB(190, 232, 208),
+		tab = Color3.fromRGB(208, 240, 222),
+		tabActive = Color3.fromRGB(180, 225, 198),
+		toast = Color3.fromRGB(215, 247, 230),
+		stroke2 = Color3.fromRGB(185, 225, 200),
+		text = Color3.fromRGB(15, 45, 30),
+		sub = Color3.fromRGB(45, 90, 65),
+		dim = Color3.fromRGB(85, 130, 105),
+		knob = Color3.fromRGB(255, 255, 255)
+	},
+	Rose = {
+		bg1 = Color3.fromRGB(255, 228, 238),
+		bg2 = Color3.fromRGB(250, 215, 228),
+		panel = Color3.fromRGB(255, 228, 238),
+		panel2 = Color3.fromRGB(253, 222, 234),
+		bar1 = Color3.fromRGB(254, 224, 235),
+		bar2 = Color3.fromRGB(245, 205, 218),
+		tab = Color3.fromRGB(250, 218, 230),
+		tabActive = Color3.fromRGB(240, 195, 212),
+		toast = Color3.fromRGB(254, 224, 235),
+		stroke2 = Color3.fromRGB(240, 200, 215),
+		text = Color3.fromRGB(50, 15, 30),
+		sub = Color3.fromRGB(110, 50, 75),
+		dim = Color3.fromRGB(160, 95, 125),
+		knob = Color3.fromRGB(255, 255, 255)
+	}
+};
+local function applyPanelColor(name)
+	local picked = tostring(name or "Default");
+	local p = PANEL_PALETTES[picked] or PANEL_PALETTES["Default"];
+	_G.uiPanelColor = PANEL_PALETTES[picked] and picked or "Default";
+	local oldText = UI.text;
+	local oldSub = UI.sub;
+	local oldDim = UI.dim;
+	UI.bg1 = p.bg1;
+	UI.bg2 = p.bg2;
+	UI.panel = p.panel;
+	UI.panel2 = p.panel2;
+	UI.bar1 = p.bar1;
+	UI.bar2 = p.bar2;
+	UI.tab = p.tab;
+	UI.tabActive = p.tabActive;
+	UI.toast = p.toast;
+	UI.stroke2 = p.stroke2;
+	UI.text = p.text;
+	UI.sub = p.sub;
+	UI.dim = p.dim;
+	UI.knob = p.knob;
+	if not gui then
+		return;
+	end;
+	for _, d in gui:QueryDescendants("GuiObject") do
+		if (d:IsA("TextLabel") or d:IsA("TextButton")) then
+			if d.TextColor3 == oldText then
+				d.TextColor3 = UI.text;
+			elseif d.TextColor3 == oldSub then
+				d.TextColor3 = UI.sub;
+			elseif d.TextColor3 == oldDim then
+				d.TextColor3 = UI.dim;
+			end;
+		end;
+		local tag = getUiTag(d);
+		if tag == "Root" and d:IsA("Frame") then
+			d.BackgroundColor3 = UI.panel;
+		elseif tag == "RootGlass" and d:IsA("ImageLabel") then
+			d.ImageColor3 = UI.bg1;
+		elseif tag == "Bar" then
+			d.BackgroundColor3 = UI.bar1;
+		elseif tag == "Content" then
+			d.BackgroundColor3 = UI.bg2;
+		elseif tag == "Toast" then
+			d.BackgroundColor3 = UI.toast;
+		elseif tag == "DropdownBtn" then
+			d.BackgroundColor3 = UI.bar2;
+		elseif tag == "Options" then
+			d.BackgroundColor3 = UI.bar1;
+		elseif type(tag) == "string" and tag:sub(1, 4) == "Tab_" then
+			local glow = findUiTag(d, "Glow");
+			local isActive = glow and (glow.BackgroundTransparency or 1) < 0.5;
+			d.BackgroundColor3 = isActive and UI.tabActive or UI.tab;
+		end;
+	end;
+	if uiRefs.content then
+		uiRefs.content.BackgroundColor3 = UI.bg2;
+	end;
+	if uiRefs.topToggle then
+		uiRefs.topToggle.BackgroundColor3 = UI.bar1;
+	end;
+end;
 applyTheme(_G.uiTheme);
+applyPanelColor(_G.uiPanelColor);
 local function normChoice(v, opts, def)
 	local low = tostring(v or ""):lower();
 	for _, opt in opts or {} do
@@ -1650,9 +1889,32 @@ local function applyCustomUI()
 	if uiRefs.topToggle then
 		uiRefs.topToggle.BackgroundColor3 = UI.bar1;
 	end;
+	if frm then
+		frm.BackgroundColor3 = UI.panel;
+	end;
 	if gui then
 		for _, d in gui:QueryDescendants("GuiObject") do
-			if (getUiTag(d) == "Glow" or getUiTag(d) == "Accent") then				d.BackgroundColor3 = UI.acc2;
+			local tag = getUiTag(d);
+			if (tag == "Glow" or tag == "Accent") then
+				d.BackgroundColor3 = UI.acc2;
+			elseif tag == "Root" and d:IsA("Frame") then
+				d.BackgroundColor3 = UI.panel;
+			elseif tag == "RootGlass" and d:IsA("ImageLabel") then
+				d.ImageColor3 = UI.bg1;
+			elseif tag == "Bar" then
+				d.BackgroundColor3 = UI.bar1;
+			elseif tag == "Content" then
+				d.BackgroundColor3 = UI.bg2;
+			elseif tag == "Toast" then
+				d.BackgroundColor3 = UI.toast;
+			elseif tag == "DropdownBtn" then
+				d.BackgroundColor3 = UI.bar2;
+			elseif tag == "Options" then
+				d.BackgroundColor3 = UI.bar1;
+			elseif type(tag) == "string" and tag:sub(1, 4) == "Tab_" then
+				local glow = findUiTag(d, "Glow");
+				local isActive = glow and (glow.BackgroundTransparency or 1) < 0.5;
+				d.BackgroundColor3 = isActive and UI.tabActive or UI.tab;
 			elseif d:IsA("ScrollingFrame") then
 				d.AutomaticCanvasSize = d.ScrollingDirection == Enum.ScrollingDirection.X and Enum.AutomaticSize.X or Enum.AutomaticSize.Y;
 				d.CanvasSize = UDim2.new(0, 0, 0, 0);
@@ -1660,6 +1922,9 @@ local function applyCustomUI()
 			elseif d:IsA("UIStroke") and d.Transparency <= 0.2 then
 				d.Color = UI.stroke;
 			end;
+		end;
+		if uiRefs.content then
+			uiRefs.content.BackgroundColor3 = UI.bg2;
 		end;
 	end;
 	if uiRefs.fovCircle then
@@ -2809,6 +3074,7 @@ VLO.aimOrigin.saveCfg = function(forceSave, nameOverride)
 		uiWindowAlpha = _G.uiWindowAlpha,
 		uiContentAlpha = _G.uiContentAlpha,
 		uiTheme = _G.uiTheme,
+		uiPanelColor = _G.uiPanelColor,
 		uiAnimations = _G.uiAnimations,
 		uiAnimSpeed = _G.uiAnimSpeed,
 		uiCompact = _G.uiCompact,
@@ -2870,6 +3136,9 @@ local function applyCfg(obj)
 	end;
 	if obj.uiTheme then
 		obj.uiTheme = normChoice(obj.uiTheme, OPT.THEME_OPTIONS, "Midnight Purple");
+	end;
+	if obj.uiPanelColor then
+		obj.uiPanelColor = normChoice(obj.uiPanelColor, OPT.PANEL_COLOR_OPTIONS, "Default");
 	end;
 	if obj.toastPosition then
 		obj.toastPosition = normChoice(obj.toastPosition, OPT.TOAST_POS_OPTIONS, "Top Right");
@@ -3044,6 +3313,7 @@ _G.espOutlineTransparency = math.clamp(tonumber(_G.espOutlineTransparency) or 0.
 _G.targetMaxDistance = math.clamp(tonumber(_G.targetMaxDistance) or 2500, 100, 5000);
 normalizeRandomWeights();
 applyTheme(_G.uiTheme);
+applyPanelColor(_G.uiPanelColor);
 local camFOVCon, camSwapCon;
 local function bindFOV()
 	if camFOVCon then
@@ -6290,8 +6560,8 @@ local function createUI()
 		VLO.aimOrigin.toast("lock key reset to MouseButton2");
 	end);
 	addSection(pgSettings, "panel color");
-	addRowDropdown(pgSettings, "panel color", "uiTheme", OPT.THEME_OPTIONS, "changes accent colors", function(v)
-		applyTheme(v);
+	addRowDropdown(pgSettings, "panel color", "uiPanelColor", OPT.PANEL_COLOR_OPTIONS, "changes the window panel background", function(v)
+		applyPanelColor(v);
 		applyCustomUI();
 	end);
 	addSection(pgSettings, "configs");
@@ -6314,6 +6584,7 @@ local function createUI()
 		_G.mobileHelperButtons = normalizeActionList(_G.mobileHelperButtons, OPT.MOBILE_ACTION_OPTIONS, OPT.MOBILE_HELPER_DEFAULTS);
 		normalizeRandomWeights();
 		applyTheme(_G.uiTheme);
+		applyPanelColor(_G.uiPanelColor);
 		applyToastPos();
 		applyCustomUI();
 		updateFOVCircle();
@@ -6830,7 +7101,7 @@ local function createUI()
 		vTargetMode.Text = normalizeAimMode(_G.aimTargetMode);
 		vTargetNow.Text = isLock and (lastTargetName or "none") or "none";
 		vEspState.Text = _G.espEnabled and "enabled" or "disabled";
-		vThemeState.Text = tostring(_G.uiTheme or "Midnight Purple");
+		vThemeState.Text = tostring(_G.uiTheme or "Midnight Purple") .. " / panel " .. tostring(_G.uiPanelColor or "Default");
 		vAnimState.Text = _G.uiAnimations == false and "off" or ("on / " .. tostring(_G.uiAnimSpeed or 1) .. "x");
 		vMobileState.Text = isMobilePlatform() and "yes" or "no";
 		vFrameRate.Text = tostring(math.floor(1 / math.max(avgDt, 0.001) + 0.5));
