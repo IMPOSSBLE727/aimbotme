@@ -1580,7 +1580,7 @@ local function applyTheme(name)
 	UI.stroke = t[2];
 	UI.fallback = t[1];
 end;
-local PANEL_PALETTES = {
+OPT.PANEL_PALETTES = {
 	Default = {
 		bg1 = Color3.fromRGB(200, 220, 255),
 		bg2 = Color3.fromRGB(180, 200, 240),
@@ -1742,10 +1742,10 @@ local PANEL_PALETTES = {
 		knob = Color3.fromRGB(255, 255, 255)
 	}
 };
-local function applyPanelColor(name)
+OPT.applyPanelColor = function(name)
 	local picked = tostring(name or "Default");
-	local p = PANEL_PALETTES[picked] or PANEL_PALETTES["Default"];
-	_G.uiPanelColor = PANEL_PALETTES[picked] and picked or "Default";
+	local p = OPT.PANEL_PALETTES[picked] or OPT.PANEL_PALETTES["Default"];
+	_G.uiPanelColor = OPT.PANEL_PALETTES[picked] and picked or "Default";
 	local oldText = UI.text;
 	local oldSub = UI.sub;
 	local oldDim = UI.dim;
@@ -1805,7 +1805,7 @@ local function applyPanelColor(name)
 	end;
 end;
 applyTheme(_G.uiTheme);
-applyPanelColor(_G.uiPanelColor);
+OPT.applyPanelColor(_G.uiPanelColor);
 local function normChoice(v, opts, def)
 	local low = tostring(v or ""):lower();
 	for _, opt in opts or {} do
@@ -3313,7 +3313,7 @@ _G.espOutlineTransparency = math.clamp(tonumber(_G.espOutlineTransparency) or 0.
 _G.targetMaxDistance = math.clamp(tonumber(_G.targetMaxDistance) or 2500, 100, 5000);
 normalizeRandomWeights();
 applyTheme(_G.uiTheme);
-applyPanelColor(_G.uiPanelColor);
+OPT.applyPanelColor(_G.uiPanelColor);
 local camFOVCon, camSwapCon;
 local function bindFOV()
 	if camFOVCon then
@@ -6561,7 +6561,7 @@ local function createUI()
 	end);
 	addSection(pgSettings, "panel color");
 	addRowDropdown(pgSettings, "panel color", "uiPanelColor", OPT.PANEL_COLOR_OPTIONS, "changes the window panel background", function(v)
-		applyPanelColor(v);
+		OPT.applyPanelColor(v);
 		applyCustomUI();
 	end);
 	addSection(pgSettings, "configs");
@@ -6584,7 +6584,7 @@ local function createUI()
 		_G.mobileHelperButtons = normalizeActionList(_G.mobileHelperButtons, OPT.MOBILE_ACTION_OPTIONS, OPT.MOBILE_HELPER_DEFAULTS);
 		normalizeRandomWeights();
 		applyTheme(_G.uiTheme);
-		applyPanelColor(_G.uiPanelColor);
+		OPT.applyPanelColor(_G.uiPanelColor);
 		applyToastPos();
 		applyCustomUI();
 		updateFOVCircle();
